@@ -8,7 +8,9 @@ namespace RoutesWebAppDemo.Models
 {
     public class Coordinates
     {
+        // latitude 
         public double lat { get; set; }
+        // longitude
         public double lng { get; set; }
 
         public Coordinates(double lat, double lng)
@@ -17,6 +19,7 @@ namespace RoutesWebAppDemo.Models
             this.lng = lng;
         }
 
+        // default coordinate 
         public Coordinates()
         {
             this.lat = 47.260705;
@@ -33,7 +36,7 @@ namespace RoutesWebAppDemo.Models
             {
                 var r = rand.NextDouble() * radius; // random radius
                 var t = rand.NextDouble() * 2 * Math.PI; // random theta in radians
-                // calculate new latitude and longtitude based on distance
+                // calculate new latitude and longitude based on distance
                 var cLat = cor.lat / 180 * Math.PI; // convert to radians
                 var cLng = cor.lng / 180 * Math.PI;
                 var newLat = (Math.Asin(Math.Sin(cLat) * Math.Cos(r / 6378.1) + Math.Cos(cLat) * Math.Sin(r / 6378.1) * Math.Cos(t))) * 180 / Math.PI;

@@ -6,6 +6,7 @@ using System.Web;
 
 namespace RoutesWebAppDemo.Controllers
 {
+    // DataPack acts like a struct to hold multiple data type.
     public class DataPack
     {
         public String url { get; set; } = "";

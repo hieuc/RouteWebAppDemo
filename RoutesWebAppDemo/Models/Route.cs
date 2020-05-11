@@ -15,6 +15,7 @@ namespace RoutesWebAppDemo.Models
         public double time = 0;
         public List<Coordinates> maneuverPoints = new List<Coordinates>();
 
+        // initialize route object with json string
         public Route(string data)
         {
             initByJson(data);
@@ -22,9 +23,10 @@ namespace RoutesWebAppDemo.Models
 
         public Route()
         {
-            
+            // create object with default values.
         }
 
+        // initialize object by a starting and a destination coordinate
         public async Task initByCors(Coordinates toCor, Coordinates fromCor)
         {
             string url = GenerateRequestUrl(toCor, fromCor);
@@ -32,9 +34,13 @@ namespace RoutesWebAppDemo.Models
             initByJson(json);
         }
 
+        // helper method. The default way to initialize route object.
         private void initByJson(string data)
         {
+            // parse data from json, put them to sub structures 
             Data d = JsonSerializer.Deserialize<Data>(data);
+
+            // pick the right data type for fields
             this.distance = d.resourceSets[0].resources[0].travelDist;
             this.time = d.resourceSets[0].resources[0].travelDuration;
             this.maneuverPoints = new List<Coordinates>();
@@ -47,6 +53,7 @@ namespace RoutesWebAppDemo.Models
             }
         }
 
+        // generate request url from 2 coordinates.
         public static string GenerateRequestUrl(Coordinates toCor, Coordinates fromCor)
         {
             string url = "http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0={0}&wp.1={1}&avoid=minimizeTolls&key={2}";
@@ -56,6 +63,7 @@ namespace RoutesWebAppDemo.Models
             return result;
         }
 
+        // return json string from a given url
         public static async Task<string> GetJsonResponse(string url)
         {
             HttpClient client = new HttpClient();
@@ -72,6 +80,7 @@ namespace RoutesWebAppDemo.Models
         }
     }
 
+    // classes to parse data from json
     partial class Data
     {
         [JsonPropertyName("resourceSets")]
