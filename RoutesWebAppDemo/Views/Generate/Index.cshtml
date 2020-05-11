@@ -1,0 +1,60 @@
+﻿@model RoutesWebAppDemo.Controllers.DataPack
+@{
+    ViewBag.Title = "Generate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2></h2>
+
+<p>
+    <a href="Generate/Regenerate"><b>Generate coordinates.</b></a> <br />
+</p>
+
+<p>
+    @Html.ActionLink("List", "List") of randomly generated coordinates. <br />
+    <b>Request URL: </b>
+    <a href=@Model.url>@Model.url</a> <br />
+    <b> Route distance: </b> @Model.route.distance km. <br />
+    <b> Route duration: </b> @Model.route.time seconds. <br />
+    <b> Route maneuver points: </b><br />
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Latitude</th>
+            <th>Longtitude</th>
+        </tr>
+
+        @{
+            int c = 1;
+            foreach (var item in @Model.route.maneuverPoints)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => @c)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.lat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.lng)
+                    </td>
+                </tr>
+                c++;
+            }
+        }
+    </table>
+    <br /><b> JSon Data: </b><br />
+    @Model.json
+    <br /><br />
+    
+     <b>Choose starting and ending coordinate from the generated <a href="List">list</a>: </b><br /> 
+    (Note: index starts from 0) <br />
+    <form action="/Generate/RegenerateCustom">
+        <label for="">Starting Coordinate index:</label>
+        <input type="text" id="start" name="start"><br><br>
+        <label for="lname">Destination Coordinate index:</label>
+        <input type="text" id="destination" name="destination"><br><br>
+        <input type="submit" value="Regenerate URL">
+    </form>
+</p>
+

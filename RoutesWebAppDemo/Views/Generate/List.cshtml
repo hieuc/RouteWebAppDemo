@@ -1,0 +1,35 @@
+﻿@model IEnumerable<RoutesWebAppDemo.Models.Coordinates>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of randomly generated coordinates.</h2>
+
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Latitude</th>
+        <th>Longtitude</th>
+    </tr>
+     
+@{
+    int c = 1;
+    foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => @c)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lng)
+        </td>
+    </tr>
+        c++;
+    }
+}
+</table>
